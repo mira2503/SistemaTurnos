@@ -20,18 +20,17 @@ class DirectSSLEmailBackend(BaseEmailBackend):
         super().__init__(fail_silently=fail_silently)
         self.host = host or getattr(settings, 'EMAIL_HOST', 'smtp.gmail.com')
         
-        # FUERZA: Si es SSL directo, el puerto DEBE ser 465 o similar. 587 nunca funcionará con SMTP_SSL.
-        raw_port = port or getattr(settings, 'EMAIL_PORT', 465)
+        # Soporte para TLS (puerto 587) y SSL (puerto 465)
+        raw_port = port or getattr(settings, 'EMAIL_PORT', 587)
         try:
             self.port = int(raw_port)
         except:
-            self.port = 465
-            
-        if self.port == 587:
-            self.port = 465 # Corrección automática
+            self.port = 587
             
         self.username = username or getattr(settings, 'EMAIL_HOST_USER', '')
         self.password = password or getattr(settings, 'EMAIL_HOST_PASSWORD', '')
+        self.use_tls = use_tls if use_tls is not None else getattr(settings, 'EMAIL_USE_TLS', False)
+        self.use_ssl = use_ssl if use_ssl is not None else getattr(settings, 'EMAIL_USE_SSL', False)
         self.timeout = timeout or 60
         self.connection = None
         
@@ -53,7 +52,8 @@ class DirectSSLEmailBackend(BaseEmailBackend):
         if self.connection:
             return False
             
-        self.log(f"\n=== NUEVA CONEXIÓN: {self.host}:{self.port} ===")
+        mode = "TLS" if self.use_tls else "SSL" if self.use_ssl else "PLAIN"
+        self.log(f"\n=== NUEVA CONEXIÓN ({mode}): {self.host}:{self.port} ===")
         self.log(f"User: {self.username}")
         
         try:
@@ -68,10 +68,8 @@ class DirectSSLEmailBackend(BaseEmailBackend):
                 self.log("Socket TCP básico: OK (Puerto abierto)")
             except Exception as se:
                 self.log(f"Socket TCP básico: FALLO - {str(se)}")
-                # Si esto falla, el firewall o ISP está bloqueando el puerto 465.
+                # Si esto falla, el firewall o ISP está bloqueando el puerto.
             
-            # 2. CONEXIÓN SSL
-            self.log("Iniciando smtplib.SMTP_SSL con context unverified...")
             context = ssl._create_unverified_context()
             
             # Monkeypatch socket para forzar IPv4 globalmente durante esta llamada
@@ -83,16 +81,34 @@ class DirectSSLEmailBackend(BaseEmailBackend):
             socket.getaddrinfo = new_getaddrinfo
             
             try:
-                self.connection = smtplib.SMTP_SSL(
-                    self.host, 
-                    self.port, 
-                    context=context, 
-                    timeout=self.timeout
-                )
+                if self.use_ssl:
+                    # 2a. CONEXIÓN SSL DIRECTA (puerto 465)
+                    self.log("Iniciando smtplib.SMTP_SSL con context unverified...")
+                    self.connection = smtplib.SMTP_SSL(
+                        self.host, 
+                        self.port, 
+                        context=context, 
+                        timeout=self.timeout
+                    )
+                    self.log("Conexión SSL establecida.")
+                else:
+                    # 2b. CONEXIÓN TLS (puerto 587)
+                    self.log("Iniciando smtplib.SMTP estándar...")
+                    self.connection = smtplib.SMTP(
+                        self.host, 
+                        self.port, 
+                        timeout=self.timeout
+                    )
+                    self.log("Conexión SMTP establecida.")
+                    
+                    if self.use_tls:
+                        self.log("Iniciando STARTTLS...")
+                        self.connection.ehlo()
+                        self.connection.starttls(context=context)
+                        self.connection.ehlo()
+                        self.log("STARTTLS completado.")
             finally:
                 socket.getaddrinfo = old_getaddrinfo # Restaurar
-            
-            self.log("Conexión SSL establecida.")
 
             # 3. LOGIN
             if self.username and self.password:

@@ -182,8 +182,10 @@ def asignar_turnos_automatico():
                 turno.hora = slots[i]['hora']
                 turno.estado = 'asignado'
                 
-                # Calcular fecha de notificación (1 día antes)
+                # Calcular fecha de notificación (1 día antes) con timezone
+                from django.utils import timezone
                 fecha_hora_turno = datetime.combine(turno.fecha, turno.hora)
+                fecha_hora_turno = timezone.make_aware(fecha_hora_turno)
                 turno.notificar_el = fecha_hora_turno - timedelta(days=1)
                 turno.notificacion_enviada = False # Resetear por si acaso
                 

@@ -566,7 +566,8 @@ class NotificationService:
         import concurrent.futures
         
         BATCH_SIZE = 40 # Lotes grandes para minimizar aperturas de conexión
-        MAX_WORKERS = 8 # Más hilos para mayor concurrencia
+        # Reducir hilos para SQLite (no maneja bien concurrencia alta)
+        MAX_WORKERS = 2 # Máximo 2 hilos para evitar "database is locked" en SQLite
         
         # Dividir en lotes totales
         total_batches = (total + BATCH_SIZE - 1) // BATCH_SIZE
@@ -588,6 +589,8 @@ class NotificationService:
         # Función Worker para cada tarea
         def process_batch_thread(batch_ids, batch_num):
             from django.db import connection as db_connection
+            # Forzar nueva conexión de BD para cada hilo
+            db_connection.close()
             # Timeout robusto 45s
             conn = get_connection(timeout=45)
             local_sent = 0
@@ -619,26 +622,46 @@ class NotificationService:
                     try:
                         conn.send_messages(msgs)
                         
-                        # Sync NOTIFICACIONES in batch
+                        # Sync NOTIFICACIONES in batch (con retry para SQLite)
                         v_ids = [vo.id for vo in valid_objs]
                         if v_ids:
-                             NotificacionEncolada.objects.filter(id__in=v_ids).update(
-                                 estado='enviado',
-                                 ultimo_error=''
-                             )
+                            import time
+                            max_retries = 3
+                            for attempt in range(max_retries):
+                                try:
+                                    NotificacionEncolada.objects.filter(id__in=v_ids).update(
+                                        estado='enviado',
+                                        ultimo_error=''
+                                    )
+                                    break
+                                except Exception as db_err:
+                                    if 'database is locked' in str(db_err) and attempt < max_retries - 1:
+                                        time.sleep(0.1 * (attempt + 1))  # Backoff exponencial
+                                    else:
+                                        raise
 
-                        # Sync Turnos in batch
+                        # Sync Turnos in batch (con retry para SQLite)
                         turno_ids = [vo.turno.id for vo in valid_objs if vo.turno]
                         if turno_ids:
                             from core.models import Turno
-                            Turno.objects.filter(id__in=turno_ids).update(
-                                notificacion_enviada=True, 
-                                notificacion_error=False,
-                                ultimo_envio=timezone.now()
-                            )
+                            import time
+                            max_retries = 3
+                            for attempt in range(max_retries):
+                                try:
+                                    Turno.objects.filter(id__in=turno_ids).update(
+                                        notificacion_enviada=True, 
+                                        notificacion_error=False,
+                                        ultimo_envio=timezone.now()
+                                    )
+                                    break
+                                except Exception as db_err:
+                                    if 'database is locked' in str(db_err) and attempt < max_retries - 1:
+                                        time.sleep(0.1 * (attempt + 1))
+                                    else:
+                                        raise
                         local_sent = len(msgs)
                         
-                        # Auditoría Loop (Bulk Create para velocidad)
+                        # Auditoría Loop (Bulk Create con retry para SQLite)
                         historial_list = []
                         for vo in valid_objs:
                             historial_list.append(HistorialEnvio(
@@ -646,20 +669,49 @@ class NotificationService:
                                 destinatario=vo.turno.responsable.email, asunto="Notif Masiva Thread"
                             ))
                         if historial_list:
-                            HistorialEnvio.objects.bulk_create(historial_list)
+                            import time
+                            max_retries = 3
+                            for attempt in range(max_retries):
+                                try:
+                                    HistorialEnvio.objects.bulk_create(historial_list)
+                                    break
+                                except Exception as db_err:
+                                    if 'database is locked' in str(db_err) and attempt < max_retries - 1:
+                                        time.sleep(0.1 * (attempt + 1))
+                                    else:
+                                        raise
                             
                     except Exception as send_err:
                         print(f"Error Proceso Batch {batch_num}: {send_err}")
                         local_errors += len(msgs)
                         v_ids = [x.id for x in valid_objs]
-                        NotificacionEncolada.objects.filter(id__in=v_ids).update(
-                            estado='error_temporal', ultimo_error=f"ErrEnvio: {str(send_err)[:100]}"
-                        )
+                        # Retry para escrituras de error también
+                        import time
+                        max_retries = 3
+                        for attempt in range(max_retries):
+                            try:
+                                NotificacionEncolada.objects.filter(id__in=v_ids).update(
+                                    estado='error_temporal', ultimo_error=f"ErrEnvio: {str(send_err)[:100]}"
+                                )
+                                break
+                            except Exception as db_err:
+                                if 'database is locked' in str(db_err) and attempt < max_retries - 1:
+                                    time.sleep(0.1 * (attempt + 1))
+                                else:
+                                    print(f"Error actualizando estado error: {db_err}")
                         # Sync Turnos Error
                         error_turno_ids = [vo.turno.id for vo in valid_objs if vo.turno]
                         if error_turno_ids:
                             from core.models import Turno
-                            Turno.objects.filter(id__in=error_turno_ids).update(notificacion_error=True)
+                            for attempt in range(max_retries):
+                                try:
+                                    Turno.objects.filter(id__in=error_turno_ids).update(notificacion_error=True)
+                                    break
+                                except Exception as db_err:
+                                    if 'database is locked' in str(db_err) and attempt < max_retries - 1:
+                                        time.sleep(0.1 * (attempt + 1))
+                                    else:
+                                        print(f"Error actualizando turnos error: {db_err}")
             except Exception as conn_err:
                 local_errors += len(batch_ids)
                 print(f"Error Conexión Proceso {batch_num}: {conn_err}")

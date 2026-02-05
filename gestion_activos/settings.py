@@ -89,6 +89,14 @@ DATABASES = {
     )
 }
 
+# Configuración específica para SQLite con concurrencia
+if 'sqlite' in DATABASES['default']['ENGINE']:
+    DATABASES['default']['OPTIONS'] = {
+        'timeout': 20,
+    }
+    # SQLite no maneja bien múltiples escrituras concurrentes
+    DATABASES['default']['ATOMIC_REQUESTS'] = True
+
 
 # Password validation
 # https://docs.djangoproject.com/en/6.0/ref/settings/#auth-password-validators
@@ -133,10 +141,9 @@ if not DEBUG:
 
 # Configuración de correo (Gmail SMTP)
 # Usamos backend personalizado que bypasea los problemas de timeout de Django
-EMAIL_BACKEND = 'notifications.smtp_backend.DirectSSLEmailBackend'
+#EMAIL_BACKEND = 'notifications.smtp_backend.DirectSSLEmailBackend'
 EMAIL_HOST = os.environ.get('EMAIL_HOST', 'smtp.gmail.com')
 EMAIL_PORT = int(os.environ.get('EMAIL_PORT', 465))
-EMAIL_USE_SSL = os.environ.get('EMAIL_USE_SSL', 'True') == 'True'
 EMAIL_USE_TLS = os.environ.get('EMAIL_USE_TLS', 'False') == 'True'
 EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER', '')
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD', '')
