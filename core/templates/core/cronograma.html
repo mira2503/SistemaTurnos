@@ -213,6 +213,108 @@
     .wizard-step-node::-webkit-scrollbar-thumb:hover {
         background: #cbd5e1;
     }
+
+    /* ========== ETIQUETAS VISUALES (CHIPS) ========== */
+    .ql-template-tag {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        padding: 2px 8px 2px 6px;
+        margin: 0 2px;
+        border-radius: 9999px;
+        font-size: 11px;
+        font-weight: 700;
+        cursor: default;
+        user-select: none;
+        vertical-align: middle;
+        line-height: 1.4;
+        white-space: nowrap;
+    }
+    .ql-template-tag::before {
+        content: '';
+        display: inline-block;
+        width: 12px;
+        height: 12px;
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+        flex-shrink: 0;
+    }
+    .ql-template-tag[data-tag="funcionario"] {
+        background: #dbeafe;
+        color: #1e40af;
+        border: 1px solid #93c5fd;
+    }
+    .ql-template-tag[data-tag="funcionario"]::before {
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231e40af' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2'/%3E%3Ccircle cx='12' cy='7' r='4'/%3E%3C/svg%3E");
+    }
+    .ql-template-tag[data-tag="fecha_turno"] {
+        background: #fef3c7;
+        color: #92400e;
+        border: 1px solid #fcd34d;
+    }
+    .ql-template-tag[data-tag="fecha_turno"]::before {
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2392400e' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='4' width='18' height='18' rx='2' ry='2'/%3E%3Cline x1='16' y1='2' x2='16' y2='6'/%3E%3Cline x1='8' y1='2' x2='8' y2='6'/%3E%3Cline x1='3' y1='10' x2='21' y2='10'/%3E%3C/svg%3E");
+    }
+    .ql-template-tag[data-tag="hora"] {
+        background: #d1fae5;
+        color: #065f46;
+        border: 1px solid #6ee7b7;
+    }
+    .ql-template-tag[data-tag="hora"]::before {
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23065f46' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='10'/%3E%3Cpolyline points='12 6 12 12 16 14'/%3E%3C/svg%3E");
+    }
+    .ql-template-tag[data-tag="equipos_lista"] {
+        background: #f3e8ff;
+        color: #6b21a8;
+        border: 1px solid #d8b4fe;
+    }
+    .ql-template-tag[data-tag="equipos_lista"]::before {
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%236b21a8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='2' y='3' width='20' height='14' rx='2' ry='2'/%3E%3Cline x1='8' y1='21' x2='16' y2='21'/%3E%3Cline x1='12' y1='17' x2='12' y2='21'/%3E%3C/svg%3E");
+    }
+    .ql-template-tag[data-tag="marca"],
+    .ql-template-tag[data-tag="modelo"] {
+        background: #e0e7ff;
+        color: #3730a3;
+        border: 1px solid #a5b4fc;
+    }
+    .ql-template-tag[data-tag="marca"]::before {
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%233730a3' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='8' r='7'/%3E%3Cpolyline points='8.21 13.89 7 23 12 20 17 23 15.79 13.88'/%3E%3C/svg%3E");
+    }
+    .ql-template-tag[data-tag="modelo"]::before {
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%233730a3' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='4' y='4' width='16' height='16' rx='2' ry='2'/%3E%3Crect x='9' y='9' width='6' height='6'/%3E%3Cline x1='9' y1='1' x2='9' y2='4'/%3E%3Cline x1='15' y1='1' x2='15' y2='4'/%3E%3Cline x1='9' y1='20' x2='9' y2='23'/%3E%3Cline x1='15' y1='20' x2='15' y2='23'/%3E%3Cline x1='20' y1='9' x2='23' y2='9'/%3E%3Cline x1='20' y1='14' x2='23' y2='14'/%3E%3Cline x1='1' y1='9' x2='4' y2='9'/%3E%3Cline x1='1' y1='14' x2='4' y2='14'/%3E%3C/svg%3E");
+    }
+    .ql-template-tag[data-tag="duracion"] {
+        background: #dbeafe;
+        color: #1e40af;
+        border: 1px solid #93c5fd;
+    }
+    .ql-template-tag[data-tag="duracion"]::before {
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231e40af' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cline x1='10' y1='2' x2='14' y2='2'/%3E%3Cline x1='12' y1='14' x2='12' y2='8'/%3E%3Ccircle cx='12' cy='14' r='8'/%3E%3C/svg%3E");
+    }
+    /* Efecto hover para eliminar */
+    .ql-template-tag:hover {
+        opacity: 0.85;
+    }
+    .ql-template-tag .tag-remove {
+        display: none;
+        width: 14px;
+        height: 14px;
+        margin-left: 2px;
+        border-radius: 50%;
+        background: rgba(0,0,0,0.15);
+        color: inherit;
+        font-size: 10px;
+        line-height: 14px;
+        text-align: center;
+        cursor: pointer;
+    }
+    .ql-template-tag:hover .tag-remove {
+        display: inline-block;
+    }
+    .ql-template-tag .tag-remove:hover {
+        background: rgba(239, 68, 68, 0.3);
+    }
 </style>
 <!-- Quill CSS -->
 <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
@@ -918,6 +1020,71 @@
             </div>
         </div>
     </div>
+
+    <!-- MODAL: NO HAY EXCEL CARGADO -->
+    <div id="noExcelModal" class="fixed inset-0 bg-black/60 hidden items-center justify-center z-[10010] backdrop-blur-sm transition-all duration-300">
+        <div class="bg-white rounded-2xl max-w-lg w-full overflow-hidden shadow-2xl transform transition-all scale-95 opacity-0" id="noExcelModalContainer">
+            <div class="bg-rose-500 p-6 flex items-center justify-between text-white">
+                <div class="flex items-center gap-4">
+                    <div class="p-3 bg-white/20 rounded-xl">
+                        <i data-lucide="file-x" class="w-6 h-6"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-black uppercase tracking-tight">No Hay Datos Cargados</h3>
+                        <p class="text-xs font-bold opacity-80">Se requiere cargar un archivo Excel</p>
+                    </div>
+                </div>
+                <button onclick="closeNoExcelModal()" class="p-2 hover:bg-white/10 rounded-lg transition-colors">
+                    <i data-lucide="x" class="w-6 h-6"></i>
+                </button>
+            </div>
+
+            <div class="p-8 space-y-6">
+                <div class="bg-rose-50 p-4 rounded-xl border border-rose-200 flex items-start gap-3">
+                    <i data-lucide="alert-triangle" class="w-5 h-5 text-rose-600 mt-0.5 flex-shrink-0"></i>
+                    <div>
+                        <p class="text-sm text-rose-800 font-bold mb-1">No se encontraron equipos pendientes</p>
+                        <p class="text-xs text-rose-700 font-medium leading-relaxed">
+                            Para generar el cronograma, primero debes cargar un archivo Excel con los equipos a mantener. 
+                            Si ya habías cargado un archivo previamente, es posible que los datos se hayan procesado o eliminado.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="bg-blue-50/50 p-4 rounded-xl border border-blue-100">
+                    <h4 class="text-[11px] font-black text-blue-800 uppercase tracking-wider mb-3 flex items-center gap-2">
+                        <i data-lucide="info" class="w-4 h-4"></i>
+                        ¿Qué debes hacer?
+                    </h4>
+                    <ol class="space-y-2">
+                        <li class="flex items-start gap-2 text-[11px] text-gray-700 font-medium">
+                            <span class="bg-blue-600 text-white text-[9px] font-black px-1.5 py-0.5 rounded">1</span>
+                            Ve a la sección <strong>"Cargar Excel"</strong> en el panel izquierdo
+                        </li>
+                        <li class="flex items-start gap-2 text-[11px] text-gray-700 font-medium">
+                            <span class="bg-blue-600 text-white text-[9px] font-black px-1.5 py-0.5 rounded">2</span>
+                            Sube tu archivo con el listado de equipos
+                        </li>
+                        <li class="flex items-start gap-2 text-[11px] text-gray-700 font-medium">
+                            <span class="bg-blue-600 text-white text-[9px] font-black px-1.5 py-0.5 rounded">3</span>
+                            Luego vuelve aquí para generar el cronograma
+                        </li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="p-6 bg-gray-50 border-t border-gray-100 flex gap-3">
+                <button onclick="closeNoExcelModal(); openExcelFormatModal();" class="flex-1 py-3 bg-amber-500 text-white rounded-xl font-black text-xs uppercase tracking-widest hover:bg-amber-600 transition-all active:scale-95 flex items-center justify-center gap-2">
+                    <i data-lucide="file-spreadsheet" class="w-4 h-4"></i>
+                    Ver Formato Excel
+                </button>
+                <button onclick="closeNoExcelModal()" class="flex-1 py-3 bg-gray-800 text-white rounded-xl font-black text-xs uppercase tracking-widest hover:bg-black transition-all active:scale-95">
+                    Entendido
+                </button>
+            </div>
+        </div>
+    </div>
+
     <div id="confirmationModal"
         class="fixed inset-0 bg-black/50 hidden items-center justify-center z-[50000] backdrop-blur-sm transition-opacity duration-300 opacity-0">
         <div id="confirmModalContent"
@@ -949,12 +1116,12 @@
     <div id="wizardModal"
         class="fixed inset-0 z-[100] hidden bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
         <div id="wizardModalContainer"
-            class="bg-white rounded-[2rem] shadow-2xl w-full max-w-6xl max-h-[95vh] overflow-hidden flex flex-col transform transition-all duration-300 scale-95 opacity-0">
+            class="bg-white rounded-[2rem] shadow-2xl w-full max-w-6xl h-[90vh] overflow-hidden flex flex-col transform transition-all duration-300 scale-95 opacity-0">
             <!-- Header -->
-            <div class="px-10 py-8 border-b border-gray-100 flex justify-between items-center bg-white">
-                <div class="flex items-center gap-5">
-                    <div class="size-14 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center shadow-sm">
-                        <i data-lucide="mail-plus" class="w-7 h-7"></i>
+            <div class="px-8 py-5 border-b border-gray-100 flex justify-between items-center bg-white shrink-0">
+                <div class="flex items-center gap-4">
+                    <div class="size-12 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center shadow-sm">
+                        <i data-lucide="mail-plus" class="w-6 h-6"></i>
                     </div>
                     <div>
                         <h3 class="text-2xl font-black text-gray-900 tracking-tight leading-none">Crear Notificaciones</h3>
@@ -966,147 +1133,151 @@
                 </button>
             </div>
 
-            <!-- Step Indicators (Modernized & Compact) -->
-            <div class="px-10 py-4 bg-gray-50/50 border-b border-gray-50 flex justify-center items-center gap-20 relative">
-                <div class="absolute left-1/4 right-1/4 h-px bg-gray-200 top-1/2 -translate-y-1/2 -z-0"></div>
-                
-                <div class="flex flex-col items-center gap-1.5 relative z-10">
-                    <div id="step-circle-1" class="size-6 rounded-full flex items-center justify-center text-[9px] font-black transition-all duration-500 bg-blue-600 text-white shadow-lg shadow-blue-500/30 scale-110">1</div>
-                    <span class="text-[8px] font-black text-blue-600 uppercase tracking-widest">Configuración</span>
+            <!-- Step Indicators (Compact Horizontal) -->
+            <div class="px-6 py-2 bg-gray-50/50 border-b border-gray-100 flex justify-center items-center gap-8 shrink-0">
+                <div class="flex items-center gap-2">
+                    <div id="step-circle-1" class="size-5 rounded-full flex items-center justify-center text-[8px] font-black bg-blue-600 text-white shadow-sm">1</div>
+                    <span class="text-[9px] font-bold text-blue-600 uppercase tracking-wider">Config</span>
                 </div>
-
-                <div class="flex flex-col items-center gap-1.5 relative z-10">
-                    <div id="step-circle-2" class="size-6 rounded-full flex items-center justify-center text-[9px] font-black transition-all duration-500 bg-gray-100 text-gray-400">2</div>
-                    <span class="text-[8px] font-black text-gray-300 uppercase tracking-widest">Destinatarios</span>
+                <div class="w-8 h-px bg-gray-200"></div>
+                <div class="flex items-center gap-2">
+                    <div id="step-circle-2" class="size-5 rounded-full flex items-center justify-center text-[8px] font-black bg-gray-200 text-gray-400">2</div>
+                    <span class="text-[9px] font-bold text-gray-400 uppercase tracking-wider">Destinatarios</span>
                 </div>
-
-                <div class="flex flex-col items-center gap-1.5 relative z-10">
-                    <div id="step-circle-3" class="size-6 rounded-full flex items-center justify-center text-[9px] font-black transition-all duration-500 bg-gray-100 text-gray-400">3</div>
-                    <span class="text-[8px] font-black text-gray-300 uppercase tracking-widest">Programación</span>
+                <div class="w-8 h-px bg-gray-200"></div>
+                <div class="flex items-center gap-2">
+                    <div id="step-circle-3" class="size-5 rounded-full flex items-center justify-center text-[8px] font-black bg-gray-200 text-gray-400">3</div>
+                    <span class="text-[9px] font-bold text-gray-400 uppercase tracking-wider">Programar</span>
                 </div>
             </div>
 
             <!-- Progress Bar -->
-            <div class="w-full bg-gray-100 h-1.5 overflow-hidden">
-                <div id="wizardProgress" class="bg-blue-600 h-full transition-all duration-500" style="width: 33%">
-                </div>
+            <div class="w-full bg-gray-100 h-1 overflow-hidden shrink-0">
+                <div id="wizardProgress" class="bg-blue-600 h-full transition-all duration-500" style="width: 33%"></div>
             </div>
 
             <!-- Steps Container -->
-            <div id="wizardStepsBody" class="flex-1 overflow-hidden p-5 bg-white flex flex-col min-h-0">
+            <div id="wizardStepsBody" class="flex-1 min-h-0 overflow-hidden p-4 bg-white">
 
-                <!-- STEP 1: MESSAGE CONFIG (Integrated Design) -->
-                <div id="wizardStep1" class="wizard-step-node active-step flex-1 grid grid-cols-1 lg:grid-cols-12 gap-6 overflow-hidden min-h-0">
-                    
-                    <!-- LEFT SIDE: EDITOR SUITE (6 Columns - Balanced & Independent Scroll) -->
-                    <div class="lg:col-span-6 flex flex-col space-y-8 overflow-y-auto custom-scrollbar pr-4 h-[500px] min-h-0">
+                <!-- STEP 1: MESSAGE CONFIG (2-Column Layout: Editor+Sidebar | Preview) -->
+                <div id="wizardStep1" class="wizard-step-node active-step h-full">
+                    <div class="h-full grid grid-cols-2 gap-6">
                         
-                        <!-- Grid structure to unify alignment -->
-                        <div class="grid grid-cols-[theme(spacing.24)_1fr] gap-x-4 gap-y-5">
+                        <!-- LEFT COLUMN: EDITOR + SIDEBAR -->
+                        <div class="flex flex-col h-full overflow-hidden">
+                            <!-- Header -->
+                            <div class="mb-2 shrink-0">
+                                <h2 class="text-base font-black text-gray-900">Redacción</h2>
+                                <p class="text-[9px] font-bold text-gray-400 uppercase">Define tu mensaje base</p>
+                            </div>
                             
-                            <!-- Row: Header -->
-                            <div class="col-start-2 space-y-1">
-                                <h2 class="text-2xl font-black text-gray-900 leading-none">Redacción</h2>
-                                <p class="text-[10px] font-black text-gray-300 uppercase tracking-[0.2em]">DEFINE TU MENSAJE BASE</p>
-                            </div>
-
-                            <!-- Row: Asunto -->
-                            <div class="col-start-2 space-y-1.5">
-                                <label class="text-[9px] font-black text-gray-400 uppercase tracking-widest leading-none">ASUNTO DEL CORREO</label>
-                                <input type="text" id="wizardAsunto" value="Recordatorio: Mantenimiento Preventivo ({marca})"
+                            <!-- Asunto -->
+                            <div class="mb-2 shrink-0">
+                                <label class="text-[9px] font-bold text-gray-500 uppercase mb-1 block">Asunto</label>
+                                <input type="text" id="wizardAsunto" value="Recordatorio: Mantenimiento Preventivo"
                                     oninput="updateStep1LivePreview()"
-                                    class="w-full px-5 py-3.5 bg-gray-50 border border-transparent rounded-2xl text-sm font-bold text-gray-900 focus:bg-white focus:ring-4 focus:ring-blue-500/5 focus:border-blue-500/10 outline-none transition-all shadow-sm">
+                                    class="w-full px-3 py-2 bg-white border border-gray-200 rounded-lg text-sm font-medium text-gray-900 focus:ring-2 focus:ring-blue-500/20 focus:border-blue-400 outline-none">
                             </div>
-
-                            <!-- Row: Cuerpo Label -->
-                            <div class="col-start-2 -mb-3">
-                                <label class="text-[9px] font-black text-gray-400 uppercase tracking-widest leading-none">CUERPO DEL MENSAJE</label>
-                            </div>
-
-                            <!-- Row: Tags Sidebar + Editor -->
-                            <div class="col-span-2 flex gap-4 min-h-[480px]">
-                                <!-- Editor Sidebar (Tags - Ultra Compact) -->
-                                <div class="w-24 shrink-0 flex flex-col gap-1.5 py-1">
-                                    <label class="text-[7px] font-black text-gray-400 uppercase tracking-[0.2em] mb-1">ETIQUETAS</label>
-                                    <button onclick="insertWizardVar('{funcionario}')" class="w-full px-2 py-1 border rounded-full text-[8px] font-black transition-all flex items-center gap-1 shadow-sm hover:shadow-md hover:-translate-y-0.5 active:scale-95 whitespace-nowrap tag-blue">
-                                        <i data-lucide="user" class="size-2"></i> Funcionario
-                                    </button>
-                                    <button onclick="insertWizardVar('{fecha_turno}')" class="w-full px-2 py-1 border rounded-full text-[8px] font-black transition-all flex items-center gap-1 shadow-sm hover:shadow-md hover:-translate-y-0.5 active:scale-95 whitespace-nowrap tag-amber">
-                                        <i data-lucide="calendar" class="size-2"></i> Fecha
-                                    </button>
-                                    <button onclick="insertWizardVar('{hora}')" class="w-full px-2 py-1 border rounded-full text-[8px] font-black transition-all flex items-center gap-1 shadow-sm hover:shadow-md hover:-translate-y-0.5 active:scale-95 whitespace-nowrap tag-green">
-                                        <i data-lucide="clock" class="size-2"></i> Hora
-                                    </button>
-                                    <button onclick="insertWizardVar('{equipos_lista}')" class="w-full px-2 py-1 border rounded-full text-[8px] font-black transition-all flex items-center gap-1 shadow-sm hover:shadow-md hover:-translate-y-0.5 active:scale-95 whitespace-nowrap tag-purple">
-                                        <i data-lucide="monitor" class="size-2"></i> Equipos
-                                    </button>
-                                    <button onclick="insertWizardVar('{marca}')" class="w-full px-2 py-1 border rounded-full text-[8px] font-black transition-all flex items-center gap-1 shadow-sm hover:shadow-md hover:-translate-y-0.5 active:scale-95 whitespace-nowrap tag-indigo">
-                                        <i data-lucide="award" class="size-2"></i> Marca
-                                    </button>
-                                    <button onclick="insertWizardVar('{modelo}')" class="w-full px-2 py-1 border rounded-full text-[8px] font-black transition-all flex items-center gap-1 shadow-sm hover:shadow-md hover:-translate-y-0.5 active:scale-95 whitespace-nowrap tag-indigo">
-                                        <i data-lucide="cpu" class="size-2"></i> Modelo
-                                    </button>
-                                    <button onclick="insertWizardVar('{duracion}')" class="w-full px-2 py-1 border rounded-full text-[8px] font-black transition-all flex items-center gap-1 shadow-sm hover:shadow-md hover:-translate-y-0.5 active:scale-95 whitespace-nowrap tag-blue">
-                                        <i data-lucide="timer" class="size-2"></i> Duración
-                                    </button>
-                                </div>
-
-                                <!-- Main Editor -->
-                                <div class="flex-1 bg-white border border-gray-100 rounded-[2rem] overflow-hidden shadow-sm flex flex-col">
-                                    <div id="wizardEditor" class="flex-1"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <input type="hidden" id="hidden_cuerpo">
-                    </div>
-
-                    <!-- RIGHT SIDE: PREVIEW (6 Columns - Balanced & Independent Scroll) -->
-                    <div class="lg:col-span-6 bg-gray-50/5 rounded-[2.5rem] border border-gray-100 p-6 flex flex-col overflow-y-auto custom-scrollbar h-[500px] min-h-0">
-                        <div class="flex items-center justify-between mb-4 px-2">
-                            <p class="text-[9px] font-black text-gray-400 uppercase tracking-[0.2em]">VISTA PREVIA REAL</p>
-                            <div class="flex gap-1">
-                                <span class="size-1.5 rounded-full bg-blue-100 animate-pulse"></span>
-                                <span class="size-1.5 rounded-full bg-gray-200"></span>
-                            </div>
-                        </div>
-
-                        <div class="bg-white rounded-[2rem] shadow-2xl shadow-gray-200/20 border border-gray-50 p-6 space-y-4 relative">
-                            <!-- Email Header -->
-                            <div class="flex items-center justify-between pb-4 border-b border-gray-50">
-                                <div class="flex items-center gap-4">
-                                    <div class="w-1 h-12 bg-orange-500 rounded-full shadow-lg shadow-orange-500/20"></div>
-                                    <div>
-                                        <h4 id="previewAsuntoDisplay" class="text-sm font-black text-gray-900 leading-tight"></h4>
-                                        <p class="text-[9px] text-gray-400 font-bold uppercase tracking-widest mt-1">RECORDATORIO</p>
+                            
+                            <!-- Cuerpo del mensaje con sidebar -->
+                            <div class="flex-1 flex flex-col min-h-0 overflow-hidden">
+                                <label class="text-[9px] font-bold text-gray-500 uppercase mb-1 shrink-0">Cuerpo del mensaje</label>
+                                <div class="flex-1 flex gap-2 min-h-0 overflow-hidden">
+                                    <!-- Sidebar Etiquetas -->
+                                    <div class="w-24 shrink-0 flex flex-col gap-1 overflow-y-auto pr-1">
+                                        <button type="button" onclick="insertWizardVar('{funcionario}')" class="w-full px-2 py-1.5 border rounded-md text-[9px] font-bold transition-all flex items-center gap-1.5 bg-blue-50 border-blue-200 text-blue-700 hover:bg-blue-100">
+                                            <i data-lucide="user" class="size-3"></i> Funcionario
+                                        </button>
+                                        <button type="button" onclick="insertWizardVar('{fecha_turno}')" class="w-full px-2 py-1.5 border rounded-md text-[9px] font-bold transition-all flex items-center gap-1.5 bg-amber-50 border-amber-200 text-amber-700 hover:bg-amber-100">
+                                            <i data-lucide="calendar" class="size-3"></i> Fecha
+                                        </button>
+                                        <button type="button" onclick="insertWizardVar('{hora}')" class="w-full px-2 py-1.5 border rounded-md text-[9px] font-bold transition-all flex items-center gap-1.5 bg-green-50 border-green-200 text-green-700 hover:bg-green-100">
+                                            <i data-lucide="clock" class="size-3"></i> Hora
+                                        </button>
+                                        <button type="button" onclick="insertWizardVar('{equipos_lista}')" class="w-full px-2 py-1.5 border rounded-md text-[9px] font-bold transition-all flex items-center gap-1.5 bg-purple-50 border-purple-200 text-purple-700 hover:bg-purple-100">
+                                            <i data-lucide="monitor" class="size-3"></i> Equipos
+                                        </button>
+                                        <button type="button" onclick="insertWizardVar('{marca}')" class="w-full px-2 py-1.5 border rounded-md text-[9px] font-bold transition-all flex items-center gap-1.5 bg-indigo-50 border-indigo-200 text-indigo-700 hover:bg-indigo-100">
+                                            <i data-lucide="award" class="size-3"></i> Marca
+                                        </button>
+                                        <button type="button" onclick="insertWizardVar('{modelo}')" class="w-full px-2 py-1.5 border rounded-md text-[9px] font-bold transition-all flex items-center gap-1.5 bg-indigo-50 border-indigo-200 text-indigo-700 hover:bg-indigo-100">
+                                            <i data-lucide="cpu" class="size-3"></i> Modelo
+                                        </button>
+                                        <button type="button" onclick="insertWizardVar('{duracion}')" class="w-full px-2 py-1.5 border rounded-md text-[9px] font-bold transition-all flex items-center gap-1.5 bg-teal-50 border-teal-200 text-teal-700 hover:bg-teal-100">
+                                            <i data-lucide="timer" class="size-3"></i> Duración
+                                        </button>
+                                    </div>
+                                    <!-- Editor Quill -->
+                                    <div class="flex-1 bg-white border border-gray-200 rounded-lg overflow-hidden flex flex-col min-h-0 max-h-[320px]">
+                                        <div id="wizardEditor" class="flex-1 overflow-y-auto"></div>
                                     </div>
                                 </div>
-                                <img src="/static/img/unemi.png" alt="Logo" class="h-6 object-contain opacity-30">
+                            </div>
+                            <input type="hidden" id="hidden_cuerpo">
+                        </div>
+
+                        <!-- RIGHT COLUMN: PREVIEW (Full height, scrollable) -->
+                        <div class="flex flex-col h-full overflow-hidden">
+                            <div class="flex items-center justify-between mb-2 shrink-0">
+                                <p class="text-[9px] font-black text-gray-400 uppercase">Vista previa</p>
+                                <span class="size-2 rounded-full bg-green-400 animate-pulse"></span>
                             </div>
 
-                            <!-- Visual Asset (Smaller) -->
-                            <div class="flex justify-center">
-                                <div class="bg-gray-50/30 rounded-2xl p-2 border border-gray-100/50">
-                                    <img src="/static/img/mujeru.jpg" alt="Preview Context" class="h-24 object-contain">
-                                </div>
-                            </div>
-
-                            <!-- Content AREA (Boxed) -->
-                            <div class="bg-gray-50/50 rounded-2xl p-5 border border-gray-100/30 space-y-3">
-                                <p class="text-[11px] font-black text-gray-900">Estimado/a <span id="previewFuncionario" class="text-blue-600">ACOSTA NUÑEZ JANINA NATALI</span></p>
-                                <div id="wizardStep1Preview" class="text-[10px] text-gray-600 leading-[1.3] space-y-2 ql-editor !p-0 italic font-medium">
-                                    <!-- Content -->
-                                </div>
-                            </div>
-
-                            <!-- Meta Fields -->
-                            <div class="pt-4 border-t border-gray-100 flex flex-col gap-1.5">
-                                <div class="flex justify-between items-center px-1">
-                                    <span class="text-[8px] font-black text-gray-300 uppercase tracking-widest italic">FECHA:</span>
-                                    <span class="text-[9px] font-black text-gray-900">03 de Feb 2026</span>
-                                </div>
-                                <div class="flex justify-between items-center px-1">
-                                    <span class="text-[8px] font-black text-gray-300 uppercase tracking-widest italic">HORA:</span>
-                                    <span class="text-[9px] font-black text-gray-900">08:00 AM</span>
+                            <!-- Email Preview Card - Scrollable with max height -->
+                            <div class="flex-1 bg-gradient-to-b from-rose-50/30 to-orange-50/20 rounded-xl border border-gray-100 p-2 overflow-y-auto custom-scrollbar min-h-0 max-h-[400px]">
+                                <div class="bg-white rounded-lg shadow-md border border-gray-100 overflow-hidden">
+                                    
+                                    <!-- Email Header -->
+                                    <div class="bg-white px-4 py-3 border-b border-gray-100">
+                                        <div class="flex items-center justify-between gap-3">
+                                            <div class="flex-1 min-w-0">
+                                                <h4 id="previewAsuntoDisplay" class="text-xs font-black text-gray-900 leading-tight">Recordatorio de Mantenimiento Preventivo</h4>
+                                                <p class="text-[8px] text-gray-400 font-bold uppercase tracking-widest mt-0.5">Recordatorio</p>
+                                            </div>
+                                            <img src="/static/img/unemi.png" alt="Logo" class="h-6 object-contain opacity-60 shrink-0">
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Banner Image -->
+                                    <div class="flex justify-center py-3 bg-gray-50/50">
+                                        <img src="/static/img/mujeru.jpg" alt="Preview" class="h-14 object-contain rounded-lg">
+                                    </div>
+                                    
+                                    <!-- Content Body -->
+                                    <div class="px-4 py-3 space-y-3">
+                                        <!-- Saludo -->
+                                        <div class="text-center">
+                                            <p class="text-[10px] text-gray-500">Estimado/a</p>
+                                            <p id="previewFuncionario" class="text-xs font-black text-blue-600 uppercase">ACOSTA NUÑEZ JANINA NATALI</p>
+                                        </div>
+                                        
+                                        <!-- Mensaje -->
+                                        <div class="bg-gray-50 rounded-lg p-3">
+                                            <div id="wizardStep1Preview" class="text-[10px] text-gray-600 leading-relaxed ql-editor !p-0">
+                                                <!-- Content -->
+                                            </div>
+                                        </div>
+                                        
+                                        <!-- Equipo Badge -->
+                                        <div class="flex justify-center">
+                                            <span class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-orange-50 border border-orange-200 text-orange-700 rounded-full text-[9px] font-bold">
+                                                <i data-lucide="monitor" class="size-2.5"></i>
+                                                QUASAD QC-N240BU (Cód: 23252147)
+                                            </span>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Footer -->
+                                    <div class="bg-gray-50 px-4 py-2 border-t border-gray-100 flex justify-between text-[8px]">
+                                        <div>
+                                            <span class="text-gray-400 font-bold">FECHA:</span>
+                                            <span class="text-gray-700 font-bold ml-1">03 Feb 2026</span>
+                                        </div>
+                                        <div>
+                                            <span class="text-gray-400 font-bold">HORA:</span>
+                                            <span class="text-gray-700 font-bold ml-1">08:00 AM</span>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -1167,24 +1338,24 @@
             </div>
         </div>
 
-        <!-- Footer (Refined) -->
-        <div class="px-10 py-8 bg-white border-t border-gray-100 flex justify-between items-center">
+        <!-- Footer (Compact) -->
+        <div class="px-6 py-4 bg-white border-t border-gray-100 flex justify-between items-center shrink-0">
             <button type="button" onclick="closeWizard()"
-                class="text-gray-400 font-black uppercase text-[10px] tracking-widest hover:text-red-500 transition-colors flex items-center gap-2">
-                CANCELAR PROCESO
+                class="text-gray-400 font-bold uppercase text-[9px] tracking-widest hover:text-red-500 transition-colors flex items-center gap-2">
+                CANCELAR
             </button>
-            <div class="flex gap-4">
+            <div class="flex gap-3">
                 <button type="button" id="wizardPrevBtn" onclick="moveStep(wizardCurrentStep - 1)"
-                    class="px-8 py-3.5 text-gray-400 font-black uppercase text-[10px] tracking-widest hover:text-gray-600 disabled:opacity-0 transition-all">
+                    class="px-6 py-2.5 text-gray-400 font-bold uppercase text-[9px] tracking-widest hover:text-gray-600 disabled:opacity-0 transition-all">
                     ATRÁS
                 </button>
                 <button type="button" id="wizardNextBtn" onclick="moveStep(wizardCurrentStep + 1)"
-                    class="px-12 py-4 bg-blue-600 text-white rounded-2xl font-black uppercase text-[10px] tracking-widest shadow-xl shadow-blue-500/20 hover:bg-blue-700 hover:-translate-y-0.5 transition-all flex items-center gap-3">
-                    SIGUIENTE <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                    class="px-8 py-2.5 bg-blue-600 text-white rounded-xl font-bold uppercase text-[9px] tracking-widest shadow-lg shadow-blue-500/20 hover:bg-blue-700 transition-all flex items-center gap-2">
+                    SIGUIENTE <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
                 </button>
                 <button type="button" id="wizardSendBtn" onclick="startSendingProcess()"
-                    class="hidden px-12 py-4 bg-green-600 text-white rounded-2xl font-black uppercase text-[10px] tracking-widest shadow-xl shadow-green-500/20 hover:bg-green-700 hover:-translate-y-0.5 transition-all flex items-center gap-3">
-                    NOTIFICAR AHORA <i data-lucide="send" class="w-4 h-4"></i>
+                    class="hidden px-8 py-2.5 bg-green-600 text-white rounded-xl font-bold uppercase text-[9px] tracking-widest shadow-lg shadow-green-500/20 hover:bg-green-700 transition-all flex items-center gap-2">
+                    NOTIFICAR <i data-lucide="send" class="w-3.5 h-3.5"></i>
                 </button>
             </div>
         </div>
@@ -2416,6 +2587,34 @@
         }
     }
 
+    function openNoExcelModal() {
+        const modal = document.getElementById('noExcelModal');
+        const container = document.getElementById('noExcelModalContainer');
+        if (modal && container) {
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            setTimeout(() => {
+                container.classList.remove('scale-95', 'opacity-0');
+                container.classList.add('scale-100', 'opacity-100');
+            }, 10);
+            // Reinicializar iconos de Lucide en el modal
+            if (typeof lucide !== 'undefined') lucide.createIcons();
+        }
+    }
+
+    function closeNoExcelModal() {
+        const modal = document.getElementById('noExcelModal');
+        const container = document.getElementById('noExcelModalContainer');
+        if (modal && container) {
+            container.classList.remove('scale-100', 'opacity-100');
+            container.classList.add('scale-95', 'opacity-0');
+            setTimeout(() => {
+                modal.classList.remove('flex');
+                modal.classList.add('hidden');
+            }, 300);
+        }
+    }
+
     async function refreshAllData() {
         try {
             const resp = await fetch('{% url "api_get_datos" %}');
@@ -2698,9 +2897,8 @@
                         if (result.data && result.data.error_type === 'insufficient_slots') {
                             showErrorModal(result.data);
                         } else if (result.data && result.data.error_type === 'no_pending_turns') {
-                            // Redirect to help modal if no data
-                            openExcelFormatModal();
-                            showToast('Asegúrate de importar un archivo Excel válido primero.', 'info');
+                            // Mostrar modal específico de que no hay Excel cargado
+                            openNoExcelModal();
                         } else {
                             showToast(result.data ? result.data.message : 'Error al procesar datos', 'error');
                         }
@@ -2895,11 +3093,9 @@
             referenceDate = new Date(currentMonth); // Use the navigation cursor
         }
 
+        // Get start of week (Sunday) - consistent with renderWeekView
         const startOfWeek = new Date(referenceDate);
-        // Correct way to get Monday (starts at 00:00:00)
-        const day = referenceDate.getDay();
-        const diff = referenceDate.getDate() - day + (day === 0 ? -6 : 1);
-        startOfWeek.setDate(diff);
+        startOfWeek.setDate(referenceDate.getDate() - referenceDate.getDay());
         startOfWeek.setHours(0, 0, 0, 0);
 
         const endOfWeek = new Date(startOfWeek);
@@ -3088,15 +3284,22 @@
         }
         header.innerHTML = headerHTML;
 
-        // Render Grid (Dynamic hours based on config)
-        let gridHTML = '';
+        // Render Grid using DOM elements for proper event binding
+        container.innerHTML = '';
         const startH = config.hora_inicio ? parseInt(config.hora_inicio.split(':')[0], 10) : 8;
         const endH = config.hora_fin ? parseInt(config.hora_fin.split(':')[0], 10) : 17;
 
         for (let hour = startH; hour <= endH; hour++) {
             const timeStr = `${hour.toString().padStart(2, '0')}:00`;
-            gridHTML += `<div class="grid grid-cols-8 border-b border-gray-100 min-h-[80px]">`;
-            gridHTML += `<div class="p-2 text-center text-xs text-gray-400 font-bold border-r border-gray-100 sticky left-0 bg-white">${timeStr}</div>`;
+            
+            const rowDiv = document.createElement('div');
+            rowDiv.className = 'grid grid-cols-8 border-b border-gray-100 min-h-[80px]';
+            
+            // Hour column
+            const hourCell = document.createElement('div');
+            hourCell.className = 'p-2 text-center text-xs text-gray-400 font-bold border-r border-gray-100 sticky left-0 bg-white';
+            hourCell.textContent = timeStr;
+            rowDiv.appendChild(hourCell);
 
             for (let i = 0; i < 7; i++) {
                 const d = weekDays[i];
@@ -3105,25 +3308,34 @@
                 const slotTurnos = turnos.filter(t => t.fecha === dStr && (t.hora || '').startsWith(hourPrefix));
 
                 const isExcluded = isDayExcluded(dStr);
-                const cellClass = isExcluded ? "bg-gray-100/50" : "hover:bg-gray-50 cursor-pointer";
-                // Remove handleDayDrop to enforce Swap-Only in Weekly View
-                // Only keep onclick for opening day panel if user clicks the cell background
-                const interactionHandlers = isExcluded ? "" : `onclick="if(event.target === this) openManualTurnModal('${dStr}', '${timeStr}')"`;
-
-                gridHTML += `<div class="p-1 border-r border-gray-100 relative group transition-colors ${cellClass}"
-                                     ${interactionHandlers} title="${isExcluded ? 'Día no laborable' : 'Haga clic para añadir turno en esta hora'}">`;
-
+                
+                const cell = document.createElement('div');
+                cell.className = `p-1 border-r border-gray-100 relative group transition-colors ${isExcluded ? 'bg-gray-100/50' : 'hover:bg-gray-50 cursor-pointer'}`;
+                cell.title = isExcluded ? 'Día no laborable' : 'Haz clic para añadir turno';
+                cell.dataset.date = dStr;
+                cell.dataset.hour = timeStr;
+                
+                if (!isExcluded) {
+                    // Click to add manual turn
+                    cell.onclick = (e) => {
+                        if (e.target === cell) {
+                            openManualTurnModal(dStr, timeStr);
+                        }
+                    };
+                }
+                
+                // Add turno cards with drag & drop for swap
                 slotTurnos.forEach(t => {
                     const card = createCard(t);
                     card.classList.add('mb-1');
-                    gridHTML += card.outerHTML;
+                    cell.appendChild(card);
                 });
-
-                gridHTML += `</div>`;
+                
+                rowDiv.appendChild(cell);
             }
-            gridHTML += `</div>`;
+            
+            container.appendChild(rowDiv);
         }
-        container.innerHTML = gridHTML;
         lucide.createIcons();
     }
 
@@ -3191,6 +3403,123 @@
     let selectedRecipients = new Set();
     let groupedRecipients = {}; // { "YYYY-MM-DD": [turnos] }
 
+    // ========== SISTEMA DE ETIQUETAS VISUALES (CHIPS) ==========
+    const TAG_CONFIG = {
+        'funcionario': { label: 'Funcionario', color: 'blue' },
+        'fecha_turno': { label: 'Fecha', color: 'amber' },
+        'hora': { label: 'Hora', color: 'green' },
+        'equipos_lista': { label: 'Equipos', color: 'purple' },
+        'marca': { label: 'Marca', color: 'indigo' },
+        'modelo': { label: 'Modelo', color: 'indigo' },
+        'duracion': { label: 'Duración', color: 'blue' }
+    };
+
+    // Registrar Blot personalizado para etiquetas
+    function registerTemplateTagBlot() {
+        const Embed = Quill.import('blots/embed');
+
+        class TemplateTagBlot extends Embed {
+            static create(value) {
+                const node = super.create();
+                node.setAttribute('data-tag', value);
+                node.setAttribute('contenteditable', 'false');
+                node.classList.add('ql-template-tag');
+                
+                const config = TAG_CONFIG[value] || { label: value };
+                node.innerHTML = `<span class="tag-label">${config.label}</span><span class="tag-remove" onclick="removeTemplateTag(this)">×</span>`;
+                
+                return node;
+            }
+
+            static value(node) {
+                return node.getAttribute('data-tag');
+            }
+        }
+
+        TemplateTagBlot.blotName = 'template-tag';
+        TemplateTagBlot.tagName = 'span';
+        TemplateTagBlot.className = 'ql-template-tag';
+
+        Quill.register(TemplateTagBlot);
+    }
+
+    // Función para eliminar una etiqueta
+    function removeTemplateTag(element) {
+        const tagSpan = element.closest('.ql-template-tag');
+        if (tagSpan && wizardQuill) {
+            const blot = Quill.find(tagSpan);
+            if (blot) {
+                const index = wizardQuill.getIndex(blot);
+                wizardQuill.deleteText(index, 1);
+            }
+        }
+    }
+
+    // Función para insertar etiqueta visual
+    function insertWizardVar(tagWithBraces) {
+        if (!wizardQuill) return;
+        // Extraer nombre de la etiqueta sin llaves: {funcionario} -> funcionario
+        const tagName = tagWithBraces.replace(/[{}]/g, '');
+        const range = wizardQuill.getSelection(true);
+        wizardQuill.insertEmbed(range.index, 'template-tag', tagName, Quill.sources.USER);
+        wizardQuill.setSelection(range.index + 1);
+        updateStep1LivePreview();
+    }
+
+    // Función para exportar HTML convirtiendo chips a {variable}
+    function getExportableContent() {
+        if (!wizardQuill) return '';
+        
+        // Clonar el contenido del editor
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = wizardQuill.root.innerHTML;
+        
+        // Reemplazar cada chip por su variable correspondiente
+        tempDiv.querySelectorAll('.ql-template-tag').forEach(tag => {
+            const tagName = tag.getAttribute('data-tag');
+            const textNode = document.createTextNode(`{${tagName}}`);
+            tag.parentNode.replaceChild(textNode, tag);
+        });
+        
+        return tempDiv.innerHTML;
+    }
+
+    // Función para validar que no haya llaves sueltas
+    function validateTemplateContent(content) {
+        // Buscar llaves que no sean parte de un marcador válido
+        const validTags = Object.keys(TAG_CONFIG).map(t => `{${t}}`);
+        let tempContent = content;
+        
+        // Remover temporalmente las etiquetas válidas para detectar llaves sueltas
+        validTags.forEach(tag => {
+            tempContent = tempContent.split(tag).join('');
+        });
+        
+        // Verificar si quedan llaves sueltas
+        const hasOpenBrace = tempContent.includes('{');
+        const hasCloseBrace = tempContent.includes('}');
+        
+        if (hasOpenBrace || hasCloseBrace) {
+            return {
+                valid: false,
+                message: 'Se detectaron caracteres { o } sueltos en el mensaje. Use las etiquetas del panel izquierdo para insertar variables.'
+            };
+        }
+        
+        return { valid: true };
+    }
+
+    // Función para convertir texto con {variable} a chips (al cargar contenido existente)
+    function convertTextToChips(htmlContent) {
+        let result = htmlContent;
+        Object.keys(TAG_CONFIG).forEach(tagName => {
+            const regex = new RegExp(`\\{${tagName}\\}`, 'g');
+            const chipHtml = `<span class="ql-template-tag" data-tag="${tagName}" contenteditable="false"><span class="tag-label">${TAG_CONFIG[tagName].label}</span><span class="tag-remove" onclick="removeTemplateTag(this)">×</span></span>`;
+            result = result.replace(regex, chipHtml);
+        });
+        return result;
+    }
+
     function openWizard() {
         // 1. Reset State
         wizardCurrentStep = 1;
@@ -3236,14 +3565,14 @@
         }, 300);
     }
 
-    function insertWizardVar(tagName) {
-        if (!wizardQuill) return;
-        const range = wizardQuill.getSelection(true);
-        wizardQuill.insertText(range.index, tagName, 'bold', true);
-        wizardQuill.setSelection(range.index + tagName.length);
-    }
+    // insertWizardVar ya está definida arriba con el sistema de chips
 
     function initWizardQuill() {
+        // Registrar el Blot personalizado antes de crear la instancia
+        if (!Quill.imports['blots/template-tag']) {
+            registerTemplateTagBlot();
+        }
+
         if (wizardQuill) return;
         const editor = document.getElementById('wizardEditor');
         if (!editor) return;
@@ -3260,17 +3589,18 @@
             }
         });
 
-        // Sync to hidden input and previews
+        // Sync to hidden input and previews (usando getExportableContent)
         wizardQuill.on('text-change', () => {
-            const txt = wizardQuill.root.innerHTML;
-            document.getElementById('hidden_cuerpo').value = txt;
+            const exportedContent = getExportableContent();
+            document.getElementById('hidden_cuerpo').value = exportedContent;
             updateStep1LivePreview();
         });
     }
 
     function insertPlaceholderWizard() {
         if (wizardQuill) {
-            wizardQuill.clipboard.dangerouslyPasteHTML(`
+            // Usar chips en lugar de texto plano con llaves
+            const defaultContent = `
                  <p>Se informa que se realizará el mantenimiento preventivo de los siguientes equipos asignados a su cargo:</p>
                  <p><br></p>
                  <p><strong>{equipos_lista}</strong></p>
@@ -3283,7 +3613,16 @@
                  <p>• <strong>Actualización de software</strong>: Instalación de las últimas versiones de software y parches de seguridad disponibles.</p>
                  <p><br></p>
                  <p>Se solicita coordinar previamente la entrega de sus equipos para garantizar el cumplimiento del cronograma establecido y evitar interrupciones en el servicio durante el período mencionado.</p>
-             `);
+             `;
+            // Convertir {variable} a chips visuales
+            const contentWithChips = convertTextToChips(defaultContent);
+            wizardQuill.clipboard.dangerouslyPasteHTML(contentWithChips);
+            
+            // Sincronizar el hidden input
+            setTimeout(() => {
+                const exportedContent = getExportableContent();
+                document.getElementById('hidden_cuerpo').value = exportedContent;
+            }, 100);
         }
     }
 
@@ -3438,19 +3777,23 @@
 
         let html = '';
         const sortedDates = Object.keys(groupedRecipients).sort();
+        
+        // Helper function to check if a turn is expired
+        function isTurnExpired(t) {
+            const [year, month, day] = t.fecha.split('-');
+            const [hourStr, minStr] = (t.hora || '00:00').split(':');
+            const turnDateTime = new Date(parseInt(year), parseInt(month) - 1, parseInt(day), parseInt(hourStr), parseInt(minStr), 0);
+            return turnDateTime <= now;
+        }
 
         sortedDates.forEach(dateStr => {
             const dayTurnos = groupedRecipients[dateStr];
             
             // Logic to check if any turn is NOT expired and thus selectable
-            const daySelectableTurnos = dayTurnos.filter(t => {
-                const turnDateTime = new Date(`${t.fecha}T${t.hora}:00`);
-                return turnDateTime > now;
-            });
+            const daySelectableTurnos = dayTurnos.filter(t => !isTurnExpired(t));
 
             const allSelectedForDay = dayTurnos.length > 0 && dayTurnos.every(t => {
-                const turnDateTime = new Date(`${t.fecha}T${t.hora}:00`);
-                return turnDateTime <= now || selectedRecipients.has(`${t.id}:anticipado`);
+                return isTurnExpired(t) || selectedRecipients.has(`${t.id}:anticipado`);
             });
 
             // Accordion Item
@@ -3477,11 +3820,12 @@
                 const itemKey = `${t.id}:anticipado`;
                 const isSelected = selectedRecipients.has(itemKey);
                 
-                // Expiration Check
-                const turnDateTime = new Date(`${t.fecha}T${t.hora}:00`);
+                // Expiration Check - un turno está expirado si su fecha/hora ya pasó
+                const [year, month, day] = t.fecha.split('-');
+                const [hourStr, minStr] = (t.hora || '00:00').split(':');
+                const turnDateTime = new Date(parseInt(year), parseInt(month) - 1, parseInt(day), parseInt(hourStr), parseInt(minStr), 0);
                 const isExpired = turnDateTime <= now;
 
-                const [year, month, day] = t.fecha.split('-');
                 const shortDate = `${day}/${month}`;
 
                 html += `
@@ -3547,10 +3891,18 @@
         if (e) e.stopPropagation();
         const dayTurnos = groupedRecipients[dateStr] || [];
         const now = new Date();
+        
+        // Helper function to check if a turn is expired
+        function isTurnExpired(t) {
+            const [year, month, day] = t.fecha.split('-');
+            const [hourStr, minStr] = (t.hora || '00:00').split(':');
+            const turnDateTime = new Date(parseInt(year), parseInt(month) - 1, parseInt(day), parseInt(hourStr), parseInt(minStr), 0);
+            return turnDateTime <= now;
+        }
+        
         dayTurnos.forEach(t => {
             // Expiry Check: Only add to selection if it's in the future
-            const turnDateTime = new Date(`${t.fecha}T${t.hora}:00`);
-            if (turnDateTime <= now) return;
+            if (isTurnExpired(t)) return;
 
             const itemKey = `${t.id}:anticipado`;
             if (select) selectedRecipients.add(itemKey);
@@ -3596,7 +3948,8 @@
         if (!wizardQuill) return;
 
         const asunto = document.getElementById('wizardAsunto').value;
-        const bodyContent = wizardQuill.root.innerHTML;
+        // Obtener el contenido exportable (con {variable} en lugar de chips)
+        const bodyContent = getExportableContent();
 
         // Mock data for replacement (Realistic for preview)
         const mockData = {
@@ -3645,12 +3998,31 @@
         const closeBtn = document.getElementById('streamCloseBtn');
 
         // 1. Save current Wizard Text/Asunto as Global Config via AJAX
-        statusText.textContent = 'Guardando configuración...';
+        statusText.textContent = 'Validando contenido...';
         modal.classList.remove('hidden');
         closeBtn.classList.add('hidden');
 
         const asunto = document.getElementById('wizardAsunto').value;
-        const cuerpo = wizardQuill.root.innerHTML;
+        // Usar getExportableContent para convertir chips a {variable}
+        const cuerpo = getExportableContent();
+
+        // Validar que no haya llaves sueltas
+        const asuntoValidation = validateTemplateContent(asunto);
+        const cuerpoValidation = validateTemplateContent(cuerpo);
+        
+        if (!asuntoValidation.valid) {
+            modal.classList.add('hidden');
+            await showAlertModal('Error en el Asunto', asuntoValidation.message, 'error');
+            return;
+        }
+        
+        if (!cuerpoValidation.valid) {
+            modal.classList.add('hidden');
+            await showAlertModal('Error en el Mensaje', cuerpoValidation.message, 'error');
+            return;
+        }
+
+        statusText.textContent = 'Guardando configuración...';
 
         const formData = new FormData();
         formData.append('asunto_template', asunto);
