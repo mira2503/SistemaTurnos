@@ -3985,28 +3985,19 @@
 
 
     // --- STREAMING SENDING PROCESS ---
-    async function startSendingProcess() {
-        if (selectedRecipients.size === 0) {
-            await showAlertModal('Sin Destinatarios', 'Por favor, selecciona al menos un destinatario antes de iniciar el envío.', 'error');
-            return;
-        }
-
-        const modal = document.getElementById('streamingProgressModal');
-        const progressBar = document.getElementById('streamProgressBarFill');
-        const progressText = document.getElementById('streamProgressText');
-        const statusText = document.getElementById('streamStatusText');
-        const closeBtn = document.getElementById('streamCloseBtn');
-
-        // 1. Save current Wizard Text/Asunto as Global Config via AJAX
-        statusText.textContent = 'Validando contenido...';
+        // 1. Initial UI Feedback
+        statusText.textContent = 'Iniciando proceso...';
+        progressBar.style.width = '5%';
+        progressText.textContent = `0 de ${selectedRecipients.size}`;
         modal.classList.remove('hidden');
         closeBtn.classList.add('hidden');
 
+        // 2. Save current Wizard Text/Asunto as Global Config via AJAX
+        statusText.textContent = 'Validando y guardando contenido...';
+        
         const asunto = document.getElementById('wizardAsunto').value;
-        // Usar getExportableContent para convertir chips a {variable}
         const cuerpo = getExportableContent();
 
-        // Validar que no haya llaves sueltas
         const asuntoValidation = validateTemplateContent(asunto);
         const cuerpoValidation = validateTemplateContent(cuerpo);
         
@@ -4022,14 +4013,13 @@
             return;
         }
 
-        statusText.textContent = 'Guardando configuración...';
-
         const formData = new FormData();
         formData.append('asunto_template', asunto);
         formData.append('cuerpo_template', cuerpo);
-        formData.append('activar_anticipado', 'on'); // Wizard logic usually implies active
+        formData.append('activar_anticipado', 'on'); 
 
         try {
+            progressBar.style.width = '10%';
             const saveResp = await fetch('/notifications/config/guardar-global/', {
                 method: 'POST',
                 headers: {
@@ -4040,6 +4030,7 @@
             });
 
             if (!saveResp.ok) throw new Error('No se pudo guardar la configuración');
+            progressBar.style.width = '15%';
 
         } catch (err) {
             await showAlertModal('Error de Configuración', 'No se pudo preparar el envío: ' + err.message, 'error');
@@ -4047,9 +4038,9 @@
             return;
         }
 
-        // 2. Start Streaming
+        // 3. Start Streaming
         const ids = Array.from(selectedRecipients).join(',');
-        statusText.textContent = 'Iniciando conexión...';
+        statusText.textContent = 'Conectando con el servidor de correo...';
 
         try {
             const response = await fetch(`/notifications/stream-envio-masivo/?ids=${ids}`);
@@ -4069,28 +4060,36 @@
                         const data = JSON.parse(line);
 
                         if (data.progress !== undefined) {
-                            progressBar.style.width = `${data.progress}%`;
+                            // Ensure we don't go backwards if backend reports less than our current fake progress
+                            const currentPct = parseInt(progressBar.style.width);
+                            if (data.progress > currentPct) {
+                                progressBar.style.width = `${data.progress}%`;
+                            }
                         }
                         if (data.status) {
                             statusText.textContent = data.status;
                         }
                         if (data.sent !== undefined && data.total !== undefined) {
                             progressText.textContent = `${data.sent} de ${data.total}`;
+                            // Update status with counts for more clarity
+                            if (!data.completed) {
+                                statusText.textContent = `Enviando correo ${data.sent + 1} de ${data.total}...`;
+                            }
                         }
                         if (data.completed) {
-                            statusText.textContent = '¡ENVÍO EXITOSO!';
+                            progressBar.style.width = '100%';
+                            statusText.textContent = '¡ENVÍO COMPLETADO EXITOSAMENTE!';
                             statusText.classList.remove('text-gray-500');
                             statusText.classList.add('text-green-600', 'font-black', 'text-lg', 'animate-bounce');
                             progressBar.classList.add('bg-green-500');
                             
                             showToast(`Envío finalizado: ${data.sent} éxitos, ${data.errors} fallos.`, 'success');
                             
-                            // Auto-close after delay
                             setTimeout(() => {
                                 modal.classList.add('hidden');
-                                closeWizard(); // Close the main wizard too
+                                closeWizard(); 
                                 refreshAllData();
-                            }, 2000);
+                            }, 2500);
                         }
                         if (data.error) {
                             statusText.textContent = data.status;

@@ -9,6 +9,7 @@ from datetime import datetime, timedelta
 import json
 from .models import ConfiguracionNotificacion, HistorialEnvio, NotificacionEncolada, AuditLogNotificaciones
 from .services import NotificationService
+from .tasks import send_notifications_task, sync_notification_queue_task
 from core.models import Turno, Equipo, Responsable, ConfiguracionCronograma
 
 def dashboard(request):
@@ -126,24 +127,10 @@ def sincronizar_cola_view(request):
     """
     Controlador para forzar la sincronización de la cola con los turnos.
     """
-    creadas = NotificationService.sincronizar_cola()
-    synced, stuck = NotificationService.fix_turno_sync()
+    # Trigger background task
+    sync_notification_queue_task.delay()
     
-    # Si es AJAX (fetch), retornamos JSON
-    if request.headers.get('x-requested-with') == 'XMLHttpRequest' or request.GET.get('ajax') == '1':
-        return JsonResponse({
-            'status': 'ok',
-            'creadas': creadas,
-            'synced': synced,
-            'stuck_fixed': stuck,
-            'message': f"Programadas: {creadas}, Sincronizadas: {synced}, Huérfanas: {stuck}"
-        })
-
-    msg = f"Se han programado {creadas} nuevas notificaciones. "
-    if synced > 0:
-        msg += f"Se han sincronizado {synced} estados de turnos."
-    
-    messages.success(request, msg)
+    messages.success(request, "Se ha iniciado la sincronización de la cola en segundo plano. Los resultados se reflejarán pronto.")
     return redirect('notifications_dashboard')
 
 def ejecutar_envios(request):
@@ -151,14 +138,8 @@ def ejecutar_envios(request):
     Endpoint para despertar al Procesador de Cola manualmente.
     """
     if request.method == 'POST':
-        enviados, errores = NotificationService.ejecutar_vigilancia()
-        total = enviados + errores
-        if total == 0:
-             messages.info(request, "No hay notificaciones pendientes para enviar. Todo está al día.")
-        elif errores > 0:
-            messages.warning(request, f"Se enviaron {enviados} correctamente, pero {errores} fallaron. Sugerencia: Revisa los detalles en la Bitácora de Auditoría abajo para corregir correos o reintentar individualmente.")
-        else:
-            messages.success(request, f"¡Excelente! Se enviaron {enviados} notificaciones exitosamente.")
+        send_notifications_task.delay()
+        messages.success(request, "Se ha iniciado el envío de notificaciones en segundo plano.")
     
     return redirect('notifications_dashboard')
 
@@ -334,20 +315,12 @@ def generar_desde_proyeccion(request):
         print(f"DEBUG: IDs finales a procesar: {ids_a_procesar}")
         if ids_a_procesar:
             try:
-                enviados, errores = NotificationService.ejecutar_vigilancia(specific_ids=ids_a_procesar)
-                print(f"DEBUG: Ejecución vigilancia terminada. Enviados: {enviados}, Errores: {errores}")
-                
-                if errores == 0:
-                    if enviados == 1:
-                        messages.success(request, "¡Éxito! Se envió la notificación correctamente.")
-                    else:
-                        messages.success(request, f"¡Logrado! Se enviaron {enviados} notificaciones exitosamente.")
-                else:
-                    messages.warning(request, f"Proceso finalizado: {enviados} enviados con éxito, {errores} con errores.")
+                send_notifications_task.delay(ids_a_procesar)
+                messages.success(request, f"Se ha iniciado el envío de {len(ids_a_procesar)} notificaciones en segundo plano.")
             except Exception as e:
                 import traceback
                 traceback.print_exc()
-                messages.error(request, f"Error crítico al procesar envíos: {str(e)}")
+                messages.error(request, f"Error al programar el envío: {str(e)}")
         else:
             if items:
                 messages.info(request, f"Los {len(items)} elementos seleccionados ya estaban procesados o en cola.")
@@ -630,14 +603,13 @@ def send_manual_notifications(request):
             except Responsable.DoesNotExist:
                 continue
         
-        # Ejecutar envío inmediato
-        enviados, errores = NotificationService.ejecutar_vigilancia(specific_ids=notificaciones_creadas)
+        # Ejecutar envío inmediato en segundo plano
+        send_notifications_task.delay(notificaciones_creadas)
         
         return JsonResponse({
             'success': True,
-            'enviados': enviados,
-            'errores': errores,
-            'total': len(notificaciones_creadas)
+            'queued': len(notificaciones_creadas),
+            'message': 'Las notificaciones se están enviando en segundo plano.'
         })
         
     except json.JSONDecodeError:
@@ -665,16 +637,12 @@ def retry_notification(request, notification_id):
             notif.turno.responsable.email = nuevo_email
             notif.turno.responsable.save()
         
-        # Reintentar envío
-        enviados, errores = NotificationService.ejecutar_vigilancia(specific_ids=[notification_id])
-        
-        # Recargar para obtener el estado actualizado
-        notif.refresh_from_db()
+        # Reintentar envío en segundo plano
+        send_notifications_task.delay([notification_id])
         
         return JsonResponse({
-            'success': enviados > 0,
-            'estado': notif.estado,
-            'ultimo_error': notif.ultimo_error
+            'success': True,
+            'message': 'Reintento iniciado en segundo plano.'
         })
         
     except json.JSONDecodeError:

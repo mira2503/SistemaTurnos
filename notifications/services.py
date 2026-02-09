@@ -565,8 +565,8 @@ class NotificationService:
         # 3. Ejecución Multi-hilo ULTRA-RÁPIDA
         import concurrent.futures
         
-        BATCH_SIZE = 40 # Lotes grandes para minimizar aperturas de conexión
-        MAX_WORKERS = 8 # Más hilos para mayor concurrencia
+        BATCH_SIZE = 5 # Lotes pequeños para reportar progreso frecuentemente
+        MAX_WORKERS = 4 # Balance entre velocidad y frecuencia de updates
         
         # Dividir en lotes totales
         total_batches = (total + BATCH_SIZE - 1) // BATCH_SIZE
